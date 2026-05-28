@@ -95,6 +95,10 @@ def signup_for_activity(activity_name: str, email: str):
     if activity_name not in activities:
         raise HTTPException(status_code=404, detail="Activity not found")
 
+    # Validate allowed email domain
+    if not email.lower().endswith("@mergington.edu"):
+        raise HTTPException(status_code=400, detail="Email must be an @mergington.edu address")
+
     # Get the specific activity
     activity = activities[activity_name]
 
